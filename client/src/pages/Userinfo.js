@@ -8,16 +8,21 @@ export default function Userinfo() {
     title: '',
   });
   const handleUserinfo = () => {
-    const { email, password, nickname } = userInfo;
+    const { email, password, title } = userInfo;
     axios
-      .post(
-        `${process.env.REACT_APP_API_URL}/users/signup`,
+      .patch(
+        `${process.env.REACT_APP_API_URL}/users/properties`,
         {
-          email,
-          password,
-          nickname,
+          nickname: email,
+          password: password,
+          title: title,
         },
-        { headers: { 'Content-Type': 'application / json' } }
+        {
+          headers: {
+            'Content-Type': 'application / json',
+            Authorization: `Bearer ${ACCESS_TOKEN}`,
+          },
+        }
       )
       .then(respond => {
         if (respond.data.message === 'ok') {
@@ -49,7 +54,7 @@ export default function Userinfo() {
                 className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-transparent"
                 name="email"
                 placeholder="email"
-                onChange={() => handleInputValue('email')}
+                onChange={handleInputValue('email')}
               />
             </div>
             <div className="mb-3 relative">
@@ -62,7 +67,7 @@ export default function Userinfo() {
                 className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-transparent"
                 name="password"
                 placeholder="password"
-                onChange={() => handleInputValue('password')}
+                onChange={handleInputValue('password')}
               />
             </div>
 
@@ -76,7 +81,7 @@ export default function Userinfo() {
                 className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-transparent"
                 name="name"
                 placeholder="title"
-                onChange={() => handleInputValue('email')}
+                onChange={handleInputValue('title')}
               />
             </div>
             <button

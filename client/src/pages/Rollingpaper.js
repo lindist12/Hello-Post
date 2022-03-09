@@ -40,9 +40,7 @@ export default function Rollingpaper({
       .catch(error => console.log(error));
   };
 
-  const [list, setList] = useState(dummy);
-
-  useState({
+  const [list, setList] = useState({
     title: '',
     total_message: '',
     messages: [
@@ -56,15 +54,11 @@ export default function Rollingpaper({
 
   const readHandler = () => {
     axios
-      .get(
-        `${process.env.REACT_APP_API_URL}/posts/`,
-        // ${uid}`,
-        {
-          headers: {
-            authorization: { 'Content-Type': 'application/json' },
-          },
-        }
-      )
+      .get(`${process.env.REACT_APP_API_URL}/posts/${uid}`, {
+        headers: {
+          authorization: { 'Content-Type': 'application/json' },
+        },
+      })
       .then(res => {
         setList({
           title: res.data.list.title,
@@ -81,7 +75,7 @@ export default function Rollingpaper({
   return (
     <div className="h-screen bg-amber-50 overflow-x-hidden">
       <Navbar
-        tt={list.length}
+        tt={list.messages.length}
         showSidemenu={showSidemenu}
         setShowSidemenu={setShowSidemenu}
         setShowNotification={setShowNotification}
@@ -94,7 +88,7 @@ export default function Rollingpaper({
         ></img>
         <div className="mr-6 mx-5 my-7">
           <ul ref={printRef} className="grid grid-cols-6">
-            {list.map((message, index) => {
+            {list.messages.map((message, index) => {
               return (
                 <Message
                   list={list}
