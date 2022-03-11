@@ -20,13 +20,13 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [userId, setUserId] = useState(null);
   const [userinfo, setUserinfo] = useState({
-    title: '롤링페이퍼',
+    title: '롤링페이퍼s',
     total_message: 0,
     email: 'test@com',
     nickname: 'suri',
   });
 
-  // console.log(userinfo);
+  console.log(userinfo);
   const [accessToken, issueAccessToken] = useState(null);
 
   // [TEST] 루트경로로 접속할 때 서버의 GET '/' 요청 처리를 위해 잠시 추가했습니다!
